@@ -17,7 +17,8 @@ public class StandaloneActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_standalone);
-
+//        getSupportFragmentManager().beginTransaction()
+//                .add(R.id.rootView, new StandaloneFragment()).commitAllowingStateLoss();
         final LinearLayout rootView = findViewById(R.id.rootView);
         rootView.addView(createPluginView());
     }
