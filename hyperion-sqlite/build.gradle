@@ -1,7 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 group = project.libraryGroup
-version = project.libraryVersion
+version = "0.9.38.3" //project.libraryVersion
+var releaseArtifactId = "hyperion-sqlite"
 
 android {
     compileSdkVersion project.compileSdkVersion
@@ -19,7 +21,12 @@ android {
     }
 
     resourcePrefix 'hsql_'
-
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -43,4 +50,26 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+}
+
+afterEvaluate {
+    publishing {
+        //publish to filesystem repo
+        repositories {
+            maven {
+                url 'http://jfrog.gdu-tech.com/artifactory/releases/'
+                allowInsecureProtocol = true
+            }
+        }
+
+        publications {
+            HyperionCore(MavenPublication) {
+                from components.release
+
+                groupId group
+                artifactId releaseArtifactId
+                version version
+            }
+        }
+    }
 }
