@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 group = project.libraryGroup //com.willowtreeapps.hyperion
-version = "0.9.38.3" //project.libraryVersion //0.9.37
+version = "0.9.38.4" //project.libraryVersion //0.9.37
 var releaseArtifactId = "hyperion-core"
 
 android {

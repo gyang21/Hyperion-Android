@@ -40,7 +40,10 @@ public class StandaloneFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        factory.destroy(this.requireActivity());
+        try {
+            factory.destroy(this.requireActivity());
+        } catch (Exception ignore) {
+        }
     }
 
 }

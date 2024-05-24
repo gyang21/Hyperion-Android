@@ -6,6 +6,9 @@
         <item name="colorPrimary">@color/hsp_primary</item>
         <item name="colorPrimaryDark">@color/hsp_primary_dark</item>
         <item name="colorAccent">@color/hsp_accent</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="textAllCaps">false</item>
     </style>
 
 </resources>

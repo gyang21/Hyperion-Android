@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 
 group = project.libraryGroup
-version = "0.9.38.3" //project.libraryVersion
+version = "0.9.38.4" //project.libraryVersion
 var releaseArtifactId = "hyperion-sqlite"
 
 android {
