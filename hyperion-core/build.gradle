@@ -1,7 +1,9 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
-group = project.libraryGroup
-version = project.libraryVersion
+group = project.libraryGroup //com.willowtreeapps.hyperion
+version = "0.9.38.3" //project.libraryVersion //0.9.37
+var releaseArtifactId = "hyperion-core"
 
 android {
     compileSdkVersion project.compileSdkVersion
@@ -23,7 +25,12 @@ android {
     lintOptions {
         abortOnError false
     }
-
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
     resourcePrefix 'hype_'
 }
 
@@ -38,4 +45,26 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:${project.versionDagger}"
 }
 
-apply from: '../publish.gradle'
+afterEvaluate {
+    publishing {
+        //publish to filesystem repo
+        repositories {
+            maven {
+                url 'http://jfrog.gdu-tech.com/artifactory/releases/'
+                allowInsecureProtocol = true
+            }
+        }
+
+        publications {
+            HyperionCore(MavenPublication) {
+                from components.release
+
+                groupId group
+                artifactId releaseArtifactId
+                version version
+            }
+        }
+    }
+}
+
+//apply from: '../publish.gradle'

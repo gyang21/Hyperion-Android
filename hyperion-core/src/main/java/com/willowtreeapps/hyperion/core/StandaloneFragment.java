@@ -12,6 +12,10 @@ import androidx.fragment.app.Fragment;
 
 import com.willowtreeapps.hyperion.plugin.v1.HyperionIgnore;
 
+/**
+ * 支持fragment
+ * @author guoyang
+ */
 @HyperionIgnore
 public class StandaloneFragment extends Fragment {
     private final PluginViewFactory factory = Hyperion.getPluginViewFactory();

@@ -10,7 +10,7 @@
         <service
             android:name=".internal.HyperionService"
             android:exported="false"
-            android:foregroundServiceType="specialUse" >
+            android:foregroundServiceType="mediaProjection" >
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="service used to ensure debug menu notification is visible while app UI is visible and no longer than that" />
