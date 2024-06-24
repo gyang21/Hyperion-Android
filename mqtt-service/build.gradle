@@ -1,0 +1,67 @@
+apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+group = "org.eclipse.paho" //org.eclipse.paho
+version = "1.1.1.1" //project.libraryVersion //0.9.37
+var releaseArtifactId = "org.eclipse.paho.android.service"
+
+android {
+    compileSdkVersion project.compileSdkVersion
+    buildToolsVersion project.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion project.minSdkVersion
+        targetSdkVersion project.targetSdkVersion
+        versionName version
+        consumerProguardFiles 'consumer-proguard-rules.pro'
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // VERSION_NAME no longer available as of 4.1
+        // https://issuetracker.google.com/issues/158695880
+        buildConfigField 'String', 'VERSION_NAME', "\"$version\""
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+    publishing {
+        singleVariant('release') {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
+    resourcePrefix 'hype_'
+}
+
+dependencies {
+    implementation "org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0"
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
+//    implementation "androidx.appcompat:appcompat:${project.versionAppCompat}"
+//    implementation "androidx.recyclerview:recyclerview:${project.versionRecyclerView}"
+//    implementation "androidx.startup:startup-runtime:${project.versionAppStartup}"
+}
+
+afterEvaluate {
+    publishing {
+        //publish to filesystem repo
+        repositories {
+            maven {
+                url 'http://jfrog.gdu-tech.com/artifactory/releases/'
+                allowInsecureProtocol = true
+            }
+        }
+
+        publications {
+            mqttservice(MavenPublication) {
+                from components.release
+
+                groupId group
+                artifactId releaseArtifactId
+                version version
+            }
+        }
+    }
+}
+
+//apply from: '../publish.gradle'

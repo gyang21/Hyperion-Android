@@ -18,4 +18,5 @@ include ':hyperion-sample',
         ':hyperion-geiger-counter',
         ':hyperion-timber',
         ':hyperion-sqlite',
+        ':mqtt-service',
         ':hyperion-build-config'
